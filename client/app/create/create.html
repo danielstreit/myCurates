@@ -21,6 +21,13 @@
         </p>
       </div>
 
+      <div class="form-group" ng-class="{ 'has-success': form.keywords.$valid && form.keywords.$dirty,
+                                            'has-error': form.keywords.$invalid && submitted }">
+        <label for="keywords">Keywords</label>
+        <input ng-model="collection.keywords" type="text" class="form-control" 
+                    name="keywords" placeholder="Enter keywords separated by spaces" />
+      </div>
+
       <div class="form-group" ng-class="{ 'has-success': form.url.$valid,
                                               'has-error': form.url.$invalid && (submitted || form.url.$error.pattern) }">
         <label for="title">Url</label>

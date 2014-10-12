@@ -7,6 +7,8 @@ var router = express.Router();
 
 router.get('/', controller.index);
 router.get('/:url', controller.show);
+router.get('/:collectionId/addStar/:userId', controller.addStar);
+router.get('/:collectionId/removeStar/:userId', controller.removeStar);
 router.post('/', controller.create);
 router.post('/:id', controller.update);
 router.patch('/:id', controller.update);

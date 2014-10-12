@@ -46,6 +46,44 @@ exports.update = function(req, res) {
   });
 };
 
+// Adds a star to the collection
+exports.addStar = function(req, res) {
+  var collectionId = req.params.collectionId;
+  var userId = req.params.userId;
+  console.log(collectionId, userId);
+  Collection.findByIdAndUpdate(collectionId, {
+    $addToSet: {
+      userStars: userId
+    }
+  }, function(err, collection) {
+    if (err) {
+      console.error(err);
+      return handleError(res, err);
+    }
+    console.log('after add star:', collection);
+    return res.json(200, collection);
+  });
+};
+
+// Removes a star to the collection
+exports.removeStar = function(req, res) {
+  var collectionId = req.params.collectionId;
+  var userId = req.params.userId;
+  console.log(collectionId, userId);
+  Collection.findByIdAndUpdate(collectionId, {
+    $pull: {
+      userStars: userId
+    }
+  }, function(err, collection) {
+    if (err) {
+      console.error(err);
+      return handleError(res, err);
+    }
+    console.log('after remove star:', collection);
+    return res.json(200, collection);
+  });
+};
+
 // Deletes a collection from the DB.
 exports.destroy = function(req, res) {
   Collection.findById(req.params.id, function (err, collection) {

@@ -33,6 +33,10 @@ var CollectionSchema = new Schema({
     type: [],
     default: []
   },
+  keywords: {
+    type: String,
+    default: ''
+  },
   createdAt: {
     type: Date,
     default: Date.now

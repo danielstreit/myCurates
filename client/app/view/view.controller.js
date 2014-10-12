@@ -23,34 +23,29 @@ angular.module('curatesApp')
 
     $scope.toggleStar = function() {
       if ($scope.starable) {
-        $scope.collection.userStars.push(currentUser._id);
-      } else {
-        $scope.collection.userStars = _.remove($scope.collection.userStars, currentUser._id);
-      }
-      $scope.starable = !$scope.starable;
-      $http.post('api/collections/' + $scope.collection._id, $scope.collection)
+        $scope.starable = false;
+        $http.get('api/collections/' + $scope.collection._id + '/addStar/' + currentUser._id)
           .then(function(res) {
-            console.log(res.data);
+            $scope.collection = res.data;
           })
           .catch(function(error) {
             console.error(error);
           });
+      } else {
+        $scope.starable = true;
+        $http.get('api/collections/' + $scope.collection._id + '/removeStar/' + currentUser._id)
+          .then(function(res) {
+            $scope.collection = res.data;
+          })
+          .catch(function(error) {
+            console.error(error);
+          });
+      }
     }
 
     $scope.edit = function() {
       console.log('edit called');
-      if ($scope.collection && $scope.collection._id) {
-        $http.put('api/collections/' + $scope.collection._id, $scope.collection)
-          .then(function(res) {
-            console.log(res);
-          })
-          .catch(function(error) {
-            console.error(error);
-          });
-        
-      } else {
-        console.error('No collection _id');
-      }
+
     }
 
   });

@@ -18,6 +18,10 @@
   <span class="glyphicon glyphicon-share" ng-if="cloneable && loggedIn" ng-click="clone()" tooltip="Clone this collection"></span>
   <span class="glyphicon glyphicon-star" ng-if="!starable && loggedIn" ng-click="toggleStar()" tooltip="Unstar this collection"></span>
   <span class="glyphicon glyphicon-star-empty" ng-if="starable && loggedIn" ng-click="toggleStar()" tooltip="Star this collection"></span>
+  <span class="badge" tooltip="This collection has {{ collection.userStars.length }} stars">+{{ collection.userStars.length }}</span>
+  <p class="tags" ng-show="collection.tags.length > 0">
+    tags: {{ collection.tags }}
+  </p>
   <p class="description">
     {{ collection.description }}
   </p>
