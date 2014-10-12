@@ -3,6 +3,10 @@
 var _ = require('lodash');
 var Collection = require('./collection.model');
 
+var validationError = function(res, err) {
+  return res.json(422, err);
+};
+
 // Get list of collections
 exports.index = function(req, res) {
   Collection.find(function (err, collections) {
@@ -23,7 +27,7 @@ exports.show = function(req, res) {
 // Creates a new collection in the DB.
 exports.create = function(req, res) {
   Collection.create(req.body, function(err, collection) {
-    if(err) { return handleError(res, err); }
+    if(err) { return validationError(res, err); }
     return res.json(201, collection);
   });
 };

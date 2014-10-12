@@ -10,36 +10,74 @@
   <div class="col-md-12">
     <form role="form" name="form" ng-submit="create(form)" novalidate>
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-success': form.title.$valid,
+                                            'has-error': form.title.$invalid && submitted }">
         <label for="title">Title</label>
-        <input ng-model="collection.title" autofocus type="text" class="form-control" name="title" placeholder="Enter the new collection's title" />
+        <input ng-model="collection.title" autofocus type="text" class="form-control" 
+                    name="title" placeholder="Enter the new collection's title"
+                    required />
+        <p class="help-block" ng-show="form.title.$error.required && submitted">
+          Please enter a title
+        </p>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-success': form.url.$valid,
+                                              'has-error': form.url.$invalid && submitted }">
+        <label for="title">Url</label>
+        <input ng-model="collection.url" type="text" class="form-control"
+                    required
+                    name="url" 
+                    placeholder="Choose a url for this collections" />
+        <p class="help-block" ng-show="form.url.$error.required && submitted">
+          Please choose a url
+        </p>
+      </div>
+
+      <div class="form-group" ng-class="{ 'has-success': form.description.$valid,
+                                                'has-error': form.description.$invalid && submitted }">
         <label for="description">Description</label>
-        <textarea ng-model="collection.description" class="form-control" name="description" placeholder="Describe what the collection contains"></textarea>
+        <textarea ng-model="collection.description" class="form-control" 
+                    name="description" 
+                    required
+                    placeholder="Describe what the collection contains"></textarea>
+        <p class="help-block" ng-show="form.description.$error.required && submitted">
+          What is this collection about?
+        </p>
       </div>
 
       <h3>Links</h3>
 
       <div class="link" ng-repeat="link in collection.links">
+      <ng-form name="linkForm">
+          <div class="form-group">
+            <label>Title</label>
+            <input ng-model="link.title" name="{{'title' + $index}}" type="text" class="form-control" 
+                      placeholder="What does this link to?"
+                      required />
+          </div>
 
-        <div class="form-group" >
-          <label>Title</label>
-          <input ng-model="link.title" type="text" class="form-control" placeholder="What does this link to?" />
-        </div>
+          <div class="form-group" ng-class="{ 'has-success': linkForm.url.$valid,
+                        'has-error': linkForm.url.$invalid && submitted }">
+            <label>Url</label>
+            <input ng-model="link.url" name="url" type="url" class="form-control" 
+                        placeholder="http://www.example.com"
+                        required />
+            <p class="help-block" ng-show="linkForm.url.$error.required && submitted">
+              Please enter a url
+            </p>
+            <p class="help-block" ng-show="linkForm.url.$error.url && submitted">
+              Url must be valid and start with http:// or https://
+            </p>
+          </div>
 
-        <div class="form-group" >
-          <label>URL</label>
-          <input ng-model="link.url" type="url" class="form-control" placeholder="Enter the url" />
-        </div>
-
-        <div class="form-group">
-          <label for="description">Description</label>
-          <textarea ng-model="link.description" class="form-control" placeholder="Describe the resource"></textarea>
-        </div>
-        <button class="btn btn-default" type="button" ng-click="removeLink($index)">Remove This Link</button>
-
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea ng-model="link.description" name="{{'description' + $index}}" class="form-control" 
+                        required
+                        placeholder="Describe the resource"></textarea>
+          </div>
+          <button class="btn btn-default" type="button" ng-click="removeLink($index)">Remove This Link</button>
+        </ng-form>
       </div>
 
       <button class="btn btn-inverse" type="button" ng-click="addLink()">Add a Link</button>
