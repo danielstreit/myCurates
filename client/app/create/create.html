@@ -17,7 +17,7 @@
                     name="title" placeholder="Enter the new collection's title"
                     required />
         <p class="help-block" ng-show="form.title.$error.required && submitted">
-          Please enter a title
+          Please enter a title for this collection
         </p>
       </div>
 
@@ -27,9 +27,16 @@
         <input ng-model="collection.url" type="text" class="form-control"
                     required
                     name="url" 
-                    placeholder="Choose a url for this collections" />
+                    placeholder="Choose a url for this collections"
+                    mongoose-error />
+        <p class="help-block" ng-show="form.url.$error.mongoose">
+          {{ errors.url }}
+        </p>
+        <p class="help-block" ng-hide="form.url.$error.mongoose">
+          This collection will live at: curates.io/view/{{ collection.url || 'chooseYourUrl' }}
+        </p>
         <p class="help-block" ng-show="form.url.$error.required && submitted">
-          Please choose a url
+          Please choose a url for this collection
         </p>
       </div>
 
@@ -41,7 +48,7 @@
                     required
                     placeholder="Describe what the collection contains"></textarea>
         <p class="help-block" ng-show="form.description.$error.required && submitted">
-          What is this collection about?
+          Please describe this collection
         </p>
       </div>
 
@@ -49,11 +56,15 @@
 
       <div class="link" ng-repeat="link in collection.links">
       <ng-form name="linkForm">
-          <div class="form-group">
+          <div class="form-group" ng-class="{ 'has-success': linkForm.title.$valid,
+                        'has-error': linkForm.title.$invalid && submitted }">
             <label>Title</label>
-            <input ng-model="link.title" name="{{'title' + $index}}" type="text" class="form-control" 
+            <input ng-model="link.title" name="title" type="text" class="form-control" 
                       placeholder="What does this link to?"
                       required />
+            <p class="help-block" ng-show="linkForm.title.$error.required && submitted">
+              Please enter a title for this link
+            </p>
           </div>
 
           <div class="form-group" ng-class="{ 'has-success': linkForm.url.$valid,
@@ -63,18 +74,22 @@
                         placeholder="http://www.example.com"
                         required />
             <p class="help-block" ng-show="linkForm.url.$error.required && submitted">
-              Please enter a url
+              Please enter a url for this link
             </p>
             <p class="help-block" ng-show="linkForm.url.$error.url && submitted">
-              Url must be valid and start with http:// or https://
+              That url is not valid
             </p>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" ng-class="{ 'has-success': linkForm.description.$valid,
+                        'has-error': linkForm.description.$invalid && submitted }">
             <label for="description">Description</label>
-            <textarea ng-model="link.description" name="{{'description' + $index}}" class="form-control" 
+            <textarea ng-model="link.description" name="description" class="form-control" 
                         required
                         placeholder="Describe the resource"></textarea>
+            <p class="help-block" ng-show="linkForm.description.$error.required && submitted">
+              Please describe this link
+            </p>
           </div>
           <button class="btn btn-default" type="button" ng-click="removeLink($index)">Remove This Link</button>
         </ng-form>

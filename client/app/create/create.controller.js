@@ -2,9 +2,10 @@
 
 angular.module('curatesApp')
   .controller('CreateCtrl', function($scope, $http, Auth) {
-    var user = Auth.getCurrentUser();
+    $scope.errors = {};
     $scope.collection = {};
     $scope.collection.links = [];
+    var user = Auth.getCurrentUser();
     $scope.collection.user = {
       _id: user._id,
       name: user.name
@@ -23,27 +24,22 @@ angular.module('curatesApp')
 
     $scope.create = function(form) {
       $scope.submitted = true;
-      
-      console.log(form.$valid);
       if (form.$valid) {
-        console.log($scope.collection);
         $http.post('/api/collections', $scope.collection)
           .then(function(res) {
-            console.log(res);
+            // Redirect to the created collection
           })
           .catch(function(err) {
-            err = err.data;
             $scope.errors = {};
-            console.log(err.errors);
+
             // Update validity of form fields that match the mongoose errors
-            angular.forEach(err.errors, function(error, field) {
+            angular.forEach(err.data.errors, function(error, field) {
               form[field].$setValidity('mongoose', false);
               $scope.errors[field] = error.message;
-              console.log($scope.errors[field], error.message)
             });
           });
       }
     }
 
-    // $scope.addLink();
+    $scope.addLink();
   });

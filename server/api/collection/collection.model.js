@@ -42,4 +42,19 @@ var CollectionSchema = new Schema({
   }
 });
 
+// Validate that collection url is unique
+CollectionSchema
+  .path('url')
+  .validate(function(value, respond) {
+    this.constructor.findOne({url: value}, function(err, collection) {
+      if (err) throw err;
+      if (collection) {
+        console.log(collection);
+        return respond(false);
+      }
+      console.log(collection);
+      return respond(true);
+    })
+  }, 'This url is already in use, please choose another');
+
 module.exports = mongoose.model('Collection', CollectionSchema);
