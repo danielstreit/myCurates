@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('curatesApp')
-  .controller('CreateCtrl', function($scope, $http, Auth) {
+  .controller('CreateCtrl', function($scope, $http, $location, Auth) {
     $scope.errors = {};
     $scope.collection = {};
     $scope.collection.links = [];
@@ -27,7 +27,7 @@ angular.module('curatesApp')
       if (form.$valid) {
         $http.post('/api/collections', $scope.collection)
           .then(function(res) {
-            // Redirect to the created collection
+            $location.path('/view/' + res.data.url);
           })
           .catch(function(err) {
             $scope.errors = {};

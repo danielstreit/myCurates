@@ -1,0 +1,14 @@
+
+.link a {
+  color: $curates-color;
+}
+
+.link a:hover {
+  color: darken($curates-color, 15%);
+}
+
+.collection .glyphicon {
+  font-size: 2em;
+  color: $curates-color;
+  padding: 10px;
+}

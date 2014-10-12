@@ -1,3 +1,30 @@
-<div class="col-md-12">
-This is the view view.
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header>
+  <div class="container">
+    <h1>{{ collection.title || url }}</h1>
+  </div>
+</header>
+
+<div class="container" ng-if="notFound">
+  The collection you are looking for was not found.
 </div>
+
+<div class="container collection" ng-if="collection">
+  <p class="by-line">
+    Created by: {{ collection.user.name }}
+  </p>
+  <span class="glyphicon glyphicon-edit" ng-if="editable && loggedIn" ng-click="edit()" tooltip="Edit this collection"></span>
+  <span class="glyphicon glyphicon-share" ng-if="cloneable && loggedIn" ng-click="clone()" tooltip="Clone this collection"></span>
+  <span class="glyphicon glyphicon-star" ng-if="!starable && loggedIn" ng-click="toggleStar()" tooltip="Unstar this collection"></span>
+  <span class="glyphicon glyphicon-star-empty" ng-if="starable && loggedIn" ng-click="toggleStar()" tooltip="Star this collection"></span>
+  <p class="description">
+    {{ collection.description }}
+  </p>
+  <div class="link" ng-repeat="link in collection.links">
+    <a ng-href="{{ link.url }}">{{ link.title }}</a>
+    <p class="link-description">{{ link.description }} </p>
+  </div>
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>
