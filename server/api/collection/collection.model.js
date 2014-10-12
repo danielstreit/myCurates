@@ -10,7 +10,8 @@ var CollectionSchema = new Schema({
   },
   url: {
     type: String,
-    required: true
+    required: true,
+    lowercase: true
   },
   user: {
     type: {
@@ -42,6 +43,11 @@ var CollectionSchema = new Schema({
   }
 });
 
+// Ensure index on url
+CollectionSchema.index({ url: 1 });
+
+CollectionSchema.set()
+
 // Validate that collection url is unique
 CollectionSchema
   .path('url')
@@ -49,10 +55,8 @@ CollectionSchema
     this.constructor.findOne({url: value}, function(err, collection) {
       if (err) throw err;
       if (collection) {
-        console.log(collection);
         return respond(false);
       }
-      console.log(collection);
       return respond(true);
     })
   }, 'This url is already in use, please choose another');
