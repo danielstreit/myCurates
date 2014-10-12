@@ -8,6 +8,33 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  * App-wide Styles
  */
 
+$curates-color: #4393B9;
+$header-color: #F5F5F5;
+
+header {
+  background-color: $curates-color;
+  border-bottom: none;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  color: $header-color;
+}
+
+header h1 {
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.btn-inverse {
+  color: $header-color;
+  background-color: $curates-color;
+}
+
+ul li.active {
+  color: $header-color;
+  background-color: $curates-color;
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
