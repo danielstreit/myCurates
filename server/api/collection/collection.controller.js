@@ -17,7 +17,7 @@ exports.index = function(req, res) {
 
 // Get a single collection
 exports.show = function(req, res) {
-  Collection.findById(req.params.id, function (err, collection) {
+  Collection.findOne({ url: req.params.url }, function (err, collection) {
     if(err) { return handleError(res, err); }
     if(!collection) { return res.send(404); }
     return res.json(collection);
@@ -34,15 +34,15 @@ exports.create = function(req, res) {
 
 // Updates an existing collection in the DB.
 exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Collection.findById(req.params.id, function (err, collection) {
-    if (err) { return handleError(res, err); }
-    if(!collection) { return res.send(404); }
-    var updated = _.merge(collection, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, collection);
-    });
+  var update = req.body;
+  delete update._id;
+  update.updatedAt = Date.now();
+  Collection.findByIdAndUpdate(req.params.id, update, function(err, collection) {
+    if (err) {
+      console.error(err);
+      return handleError(res, err);
+    }
+    return res.json(200, collection);
   });
 };
 
