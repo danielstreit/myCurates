@@ -3,8 +3,11 @@
 angular.module('curatesApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
+      title: 'Browse',
+      link: '/browse'
+    },{
+      title: 'Create',
+      link: '/create'
     }];
 
     $scope.isCollapsed = true;

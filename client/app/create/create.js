@@ -6,6 +6,7 @@ angular.module('curatesApp')
       .state('create', {
         url: '/create',
         templateUrl: 'app/create/create.html',
-        controller: 'CreateCtrl'
+        controller: 'CreateCtrl',
+        authenticate: true
       });
   });
