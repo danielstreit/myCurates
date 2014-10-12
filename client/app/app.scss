@@ -35,6 +35,13 @@ ul li.active {
   background-color: $curates-color;
 }
 
+.footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 70px;
+    border-top: 1px solid #E5E5E5;
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -52,5 +59,6 @@ ul li.active {
 @import 'main/main.scss';
 @import 'myCollections/myCollections.scss';
 @import 'view/view.scss';
+@import 'footer/footer.scss';
 @import 'modal/modal.scss';
 // endinjector
