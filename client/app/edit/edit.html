@@ -9,8 +9,11 @@
 <div class="container" ng-if="notUser">
   This isn't your collection. Would you like to clone it instread?
 </div>
+<div class="container" ng-if="notFound">
+  Collection not found. Why not create it?
+</div>
 
-<div class="container" ng-hide="notUser">
+<div class="container" ng-hide="notUser || notFound">
   <div class="col-md-12">
     <form role="form" name="form" ng-submit="submit(form)" novalidate>
 
@@ -40,6 +43,7 @@
                     name="url" 
                     placeholder="Choose a url for this collections"
                     ng-pattern="/^[a-zA-Z0-9_-]*$/"
+                    ng-disabled="pageTitle === 'Edit'"
                     mongoose-error />
         <p class="help-block" ng-show="form.url.$error.mongoose">
           {{ errors.url }}

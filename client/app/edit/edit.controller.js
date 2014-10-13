@@ -2,7 +2,8 @@
 
 angular.module('curatesApp')
   .controller('EditCtrl', function($scope, $http, $location, $stateParams, Auth) {
-    $scope.pageTitle = _.contains($location.path(), 'edit') ? 'Edit' : 'Create';
+    var page = $location.path().split('/')[1];
+    $scope.pageTitle = page.charAt(0).toUpperCase() + page.slice(1);
     $scope.errors = {};
     $scope.collection = {};
     $scope.collection.links = [];
@@ -25,6 +26,7 @@ angular.module('curatesApp')
           }
         })
         .catch(function(error) {
+          $scope.notFound = true;
           console.error(error);
         });
     }
