@@ -1,0 +1,24 @@
+.collectionMeta {
+  border-left: 4px solid $curates-color;
+  padding: 0 0 0 15px;
+  margin: 15px 0;
+}
+
+.collectionMeta .badge {
+  font-size: 1em;
+  background-color: $curates-color;
+  color: $header-color;
+}
+
+.collectionMeta h3 a {
+  color: $curates-color;
+}
+
+.collectionMeta h3 a:hover {
+  color: darken($curates-color, 15%);
+  text-decoration: none;
+}
+
+.collectionMeta h3 a:hover .badge {
+  background-color: darken($curates-color, 15%);
+}

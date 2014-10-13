@@ -35,6 +35,12 @@ ul li.active {
   background-color: $curates-color;
 }
 
+.link {
+  border-left: 4px solid $curates-color;
+  padding: 0 0 0 15px;
+  margin: 15px 0;
+}
+
 .footer {
     text-align: center;
     padding: 30px 0;

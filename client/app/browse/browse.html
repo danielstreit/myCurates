@@ -5,8 +5,15 @@
     <h1>Browse</h1>
   </div>
 </header>
-<div class="col-md-12">
-This is the browse view.
+
+<div class="container">
+  <div class="collectionMeta" ng-repeat="collection in collections">
+    <h3><a ng-href="{{ 'view/' + collection.url }}">
+      {{ collection.title }} 
+      <span class="badge">{{ collection.userStars.length }}</span>
+    </a></h3>
+    {{ collection.description }}
+  </div>
 </div>
 
 <div ng-include="'components/footer/footer.html'"></div>

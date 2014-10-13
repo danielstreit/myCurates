@@ -35,7 +35,8 @@ var CollectionSchema = new Schema({
   },
   keywords: {
     type: String,
-    default: ''
+    default: '',
+    lowercase: true
   },
   createdAt: {
     type: Date,

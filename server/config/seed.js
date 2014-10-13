@@ -37,6 +37,7 @@ User
     return Collection.create({
       title: 'Test',
       url: 'test',
+      keywords: 'test this',
       user: user,
       description: 'This is a test. It is only a test',
       links: [
@@ -54,8 +55,26 @@ User
       userStars: [user._id.toString()]
     });
   })
-  .then(function(collection) {
-    console.log(collection);
+  .then(function() {
+    return Collection.create({
+      title: 'JavaScript',
+      url: 'js',
+      keywords: 'JavaScript, angularjs',
+      user: user,
+      description: 'The best of JavaScript',
+      links: [
+        {
+          url: 'http://mdn.io',
+          title: 'MDN',
+          description: 'Best doccumentation of JavaScript'
+        },
+        {
+          url: 'https://angularjs.org/',
+          title: 'AngularJS',
+          description: 'HTML enhanced for web apps'
+        }
+      ]
+    });
   })
   .then(null, function(err) {
     console.error(err);
