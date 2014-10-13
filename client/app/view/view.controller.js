@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('curatesApp')
-  .controller('ViewCtrl', function ($scope, $stateParams, $http, Auth) {
+  .controller('ViewCtrl', function ($scope, $stateParams, $http, $location, Auth) {
     var currentUser = Auth.getCurrentUser();
     $scope.loggedIn = currentUser.hasOwnProperty('role');
     $scope.url = $stateParams.url;
@@ -41,11 +41,14 @@ angular.module('curatesApp')
             console.error(error);
           });
       }
-    }
+    };
 
     $scope.edit = function() {
-      console.log('edit called');
+      return $location.path('/edit/' + $scope.url);
+    };
 
-    }
+    $scope.clone = function() {
+      return $location.path('/clone/' + $scope.url);
+    };
 
   });

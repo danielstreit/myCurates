@@ -8,5 +8,11 @@ angular.module('curatesApp')
         templateUrl: 'app/edit/edit.html',
         controller: 'EditCtrl',
         authenticate: true
+      })
+      .state('clone', {
+        url: '/clone/:url',
+        templateUrl: 'app/edit/edit.html',
+        controller: 'EditCtrl',
+        authenticate: true
       });
   });

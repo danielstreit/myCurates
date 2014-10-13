@@ -18,9 +18,16 @@ angular.module('curatesApp')
       $http.get('api/collections/' + $stateParams.url)
         .then(function(res) {
           // Is this user allowed to edit this collection?
-          if (res.data.user._id === user._id && user.role !== 'admin') {
+          if (res.data.user._id === user._id && user.role !== 'admin' && $scope.pageTitle !== 'Clone') {
             $scope.collection = res.data;
-            console.log($scope.collection);
+          } else if ($scope.pageTitle === 'Clone') {
+            $scope.collection = res.data;
+            $scope.collection.user = {
+              _id: user._id,
+              name: user.name
+            };
+            delete $scope.collection.url;
+            delete $scope.collection._id;
           } else {
             $scope.notUser = true;
           }
