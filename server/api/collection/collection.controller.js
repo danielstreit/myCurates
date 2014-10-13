@@ -18,9 +18,21 @@ exports.index = function(req, res) {
 // Get a single collection
 exports.show = function(req, res) {
   Collection.findOne({ url: req.params.url }, function (err, collection) {
-    if(err) { return handleError(res, err); }
-    if(!collection) { return res.send(404); }
-    return res.json(collection);
+    if (err) { return handleError(res, err); }
+    // if no collection found, treat it as a look up for a user's collections
+    if (!collection) {
+      Collection.find({ 'user._id': req.params.url }, function(err, collections) {
+        if (err) {
+          return handleError(res, err);
+        }
+        if (!collections) {
+          return res.send(404);
+        }
+        return res.json(200, collections);
+      });
+    } else {
+      return res.json(collection);
+    }
   });
 };
 

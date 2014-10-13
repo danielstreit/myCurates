@@ -29,7 +29,7 @@ User
   .then(function(u) {
     user = {
       name: u.name,
-      _id: u._id
+      _id: u._id.toString()
     };
     return Collection.remove({}).exec();
   })
