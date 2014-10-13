@@ -5,8 +5,8 @@ angular.module('curatesApp')
     $stateProvider
       .state('create', {
         url: '/create',
-        templateUrl: 'app/create/create.html',
-        controller: 'CreateCtrl',
+        templateUrl: 'app/edit/edit.html',
+        controller: 'EditCtrl',
         authenticate: true
       });
   });

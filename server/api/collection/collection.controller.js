@@ -36,6 +36,7 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
   var update = req.body;
   delete update._id;
+  delete update.userStars;
   update.updatedAt = Date.now();
   Collection.findByIdAndUpdate(req.params.id, update, function(err, collection) {
     if (err) {
