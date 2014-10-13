@@ -8,6 +8,15 @@ angular.module('curatesApp', [
   'ui.bootstrap'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    // All urls should be lowercase
+    $urlRouterProvider.rule(function ($injector, $location) {
+        var path = $location.path();
+        var normalized = path.toLowerCase();
+        if (path !== normalized) {
+            $location.replace().path(normalized);
+        }
+    });
+
     $urlRouterProvider
       .otherwise('/');
 
