@@ -49,7 +49,7 @@ var CollectionSchema = new Schema({
 });
 
 // Ensure index on url
-CollectionSchema.index({ url: 1 });
+// CollectionSchema.index({ url: 1 });
 
 // Validate that collection url is unique
 CollectionSchema
